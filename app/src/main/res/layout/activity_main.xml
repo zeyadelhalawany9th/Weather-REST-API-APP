@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/getWeatherByCityIdBtn"
+        android:id="@+id/getWeatherByCityIDBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
@@ -46,7 +46,7 @@
         android:ems="10"
         android:padding="10dp"
         android:backgroundTint="@color/black"
-        android:hint="City Nameeee"
+        android:hint="City Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
