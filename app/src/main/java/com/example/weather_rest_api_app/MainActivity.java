@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         weatherReportsList = findViewById(R.id.weatherReportsList);
 
+        final WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
 
 
 
@@ -52,41 +54,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String url = "https://www.metaweather.com/api/location/search/?query=" + dataInput.getText().toString();
-
-                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                weatherDataService.getCityID(dataInput.getText().toString(), new WeatherDataService.VolleyResponseListener() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onError(String message)
+                    {
 
-                        JSONObject cityInfo;
-                        String cityID = "";
-
-                        try
-                        {
-                            cityInfo = response.getJSONObject(0);
-                            cityID = cityInfo.getString("woeid");
-
-                        }
-                        catch (JSONException e)
-                        {
-                            e.printStackTrace();
-                        }
-
-                        Toast.makeText(MainActivity.this, cityID, Toast.LENGTH_SHORT).show();
-                        
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
 
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(MainActivity.this, "Error Occurred!", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onResponse(String cityID)
+                    {
+
+                        Toast.makeText(MainActivity.this, "The ID Returned is: "+cityID, Toast.LENGTH_SHORT).show();
 
                     }
                 });
-
-                // Add a request to the RequestQueue.
-                RequestQueueSingleton.getInstance(MainActivity.this).addToRequestQueue(jsonArrayRequest);
 
             }
         });
@@ -97,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         getWeatherByCityIDBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
             }
         });
