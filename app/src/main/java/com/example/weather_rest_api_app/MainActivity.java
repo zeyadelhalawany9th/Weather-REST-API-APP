@@ -112,7 +112,24 @@ public class MainActivity extends AppCompatActivity {
 
         getWeatherByCityNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+                weatherDataService.getWeatherReportByCityName(dataInput.getText().toString(), new WeatherDataService.cityWeatherByNameResponseListener() {
+                    @Override
+                    public void onError(String message)
+                    {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onResponse(List<WeatherReport> weatherReports)
+                    {
+                        // put the list in a list view
+                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReports);
+
+                        weatherReportsList.setAdapter(arrayAdapter);
+                    }
+                });
 
             }
         });

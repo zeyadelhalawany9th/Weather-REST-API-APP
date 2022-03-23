@@ -166,12 +166,51 @@ public class WeatherDataService {
     }
 
 
-//
-//
-//    public List<WeatherReport> getWeatherReportByCityName(String cityName)
-//    {
-//
-//    }
+    public interface cityWeatherByNameResponseListener
+    {
+        void onError(String message);
+
+        void onResponse(List<WeatherReport> weatherReports);
+
+    }
+
+
+
+    public void getWeatherReportByCityName(String cityName, cityWeatherByNameResponseListener cityWeatherByNameResponseListener)
+    {
+
+        getCityID(cityName, new cityIDResponseListener() {
+            @Override
+            public void onError(String message)
+            {
+                cityWeatherByNameResponseListener.onError("Error Occurred!");
+
+            }
+
+            @Override
+            public void onResponse(String cityID)
+            {
+                getWeatherReportByCityID(cityID, new cityWeatherByIDResponseListener() {
+                    @Override
+                    public void onError(String message)
+                    {
+                        cityWeatherByNameResponseListener.onError("Error Occurred!");
+
+                    }
+
+                    @Override
+                    public void onResponse(List<WeatherReport> weatherReports)
+                    {
+                        cityWeatherByNameResponseListener.onResponse(weatherReports);
+
+                    }
+                });
+            }
+        });
+
+
+
+    }
 
 
 
