@@ -52,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
         getCityID.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
 
-                weatherDataService.getCityID(dataInput.getText().toString(), new WeatherDataService.VolleyResponseListener() {
+                weatherDataService.getCityID(dataInput.getText().toString(), new WeatherDataService.cityIDResponseListener() {
                     @Override
                     public void onError(String message)
                     {
@@ -80,7 +81,22 @@ public class MainActivity extends AppCompatActivity {
 
         getWeatherByCityIDBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+                weatherDataService.getWeatherReportByCityID(dataInput.getText().toString(), new WeatherDataService.cityWeatherByIDResponseListener() {
+                    @Override
+                    public void onError(String message)
+                    {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onResponse(WeatherReport weatherReport)
+                    {
+                        Toast.makeText(MainActivity.this, weatherReport.toString(), Toast.LENGTH_LONG).show();
+
+                    }
+                });
 
 
             }
