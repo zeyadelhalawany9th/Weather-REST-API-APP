@@ -41,23 +41,13 @@ public class WeatherReport {
 
     @Override
     public String toString() {
-        return "WeatherReport{" +
-                "id=" + id +
-                ", weather_state_name='" + weather_state_name + '\'' +
-                ", weather_state_abbr='" + weather_state_abbr + '\'' +
-                ", wind_direction_compass='" + wind_direction_compass + '\'' +
-                ", created='" + created + '\'' +
-                ", applicable_date='" + applicable_date + '\'' +
-                ", min_temp=" + min_temp +
-                ", max_temp=" + max_temp +
-                ", the_temp=" + the_temp +
-                ", wind_speed=" + wind_speed +
-                ", wind_direction=" + wind_direction +
-                ", air_pressure=" + air_pressure +
-                ", humidity=" + humidity +
-                ", visibility=" + visibility +
-                ", predictability=" + predictability +
-                '}';
+        return "Weather state: "+weather_state_name+" \n"+ "Applicable date: "+applicable_date+" \n"
+                +"Low Temperature: "+min_temp+" \n"+"High Temperature: "+max_temp+" \n"+"Temperature: "+the_temp+" \n"
+                +"Wind Speed: "+wind_speed+" \n"
+                +"Wind Direction: "+wind_direction+" \n"
+                +"Air Pressure: "+air_pressure+" \n"
+                +"Humidity: "+humidity+" \n"
+                +"Visibility: "+visibility+" \n";
     }
 
     public int getId() {

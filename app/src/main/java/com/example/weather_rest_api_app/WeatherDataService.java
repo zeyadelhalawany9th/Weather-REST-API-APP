@@ -85,7 +85,7 @@ public class WeatherDataService {
     {
         void onError(String message);
 
-        void onResponse(WeatherReport weatherReport);
+        void onResponse(List<WeatherReport> weatherReports);
 
     }
 
@@ -107,27 +107,35 @@ public class WeatherDataService {
                 {
                     JSONArray consolidatedWeatherList = response.getJSONArray("consolidated_weather");
 
-                    WeatherReport dayOne = new WeatherReport();
 
-                    JSONObject dayOneProps = consolidatedWeatherList.getJSONObject(0);
+                    for(int i = 0; i < consolidatedWeatherList.length(); i++)
+                    {
+                        WeatherReport dayOne = new WeatherReport();
 
-                    dayOne.setId(dayOneProps.getInt("id"));
-                    dayOne.setWeather_state_name(dayOneProps.getString("weather_state_name"));
-                    dayOne.setWeather_state_abbr(dayOneProps.getString("weather_state_abbr"));
-                    dayOne.setWind_direction_compass(dayOneProps.getString("wind_direction_compass"));
-                    dayOne.setCreated(dayOneProps.getString("created"));
-                    dayOne.setApplicable_date(dayOneProps.getString("applicable_date"));
-                    dayOne.setMin_temp(dayOneProps.getLong("min_temp"));
-                    dayOne.setMax_temp(dayOneProps.getLong("max_temp"));
-                    dayOne.setThe_temp(dayOneProps.getLong("the_temp"));
-                    dayOne.setWind_speed(dayOneProps.getLong("wind_speed"));
-                    dayOne.setWind_direction(dayOneProps.getLong("wind_direction"));
-                    dayOne.setAir_pressure(dayOneProps.getInt("air_pressure"));
-                    dayOne.setHumidity(dayOneProps.getInt("humidity"));
-                    dayOne.setVisibility(dayOneProps.getLong("visibility"));
-                    dayOne.setPredictability(dayOneProps.getInt("predictability"));
+                        JSONObject dayOneProps = consolidatedWeatherList.getJSONObject(i);
 
-                    cityWeatherByIDResponseListener.onResponse(dayOne);
+
+                        dayOne.setId(dayOneProps.getInt("id"));
+                        dayOne.setWeather_state_name(dayOneProps.getString("weather_state_name"));
+                        dayOne.setWeather_state_abbr(dayOneProps.getString("weather_state_abbr"));
+                        dayOne.setWind_direction_compass(dayOneProps.getString("wind_direction_compass"));
+                        dayOne.setCreated(dayOneProps.getString("created"));
+                        dayOne.setApplicable_date(dayOneProps.getString("applicable_date"));
+                        dayOne.setMin_temp(dayOneProps.getLong("min_temp"));
+                        dayOne.setMax_temp(dayOneProps.getLong("max_temp"));
+                        dayOne.setThe_temp(dayOneProps.getLong("the_temp"));
+                        dayOne.setWind_speed(dayOneProps.getLong("wind_speed"));
+                        dayOne.setWind_direction(dayOneProps.getLong("wind_direction"));
+                        dayOne.setAir_pressure(dayOneProps.getInt("air_pressure"));
+                        dayOne.setHumidity(dayOneProps.getInt("humidity"));
+                        dayOne.setVisibility(dayOneProps.getLong("visibility"));
+                        dayOne.setPredictability(dayOneProps.getInt("predictability"));
+
+                        weatherReports.add(dayOne);
+
+                    }
+
+                    cityWeatherByIDResponseListener.onResponse(weatherReports);
 
 
 
